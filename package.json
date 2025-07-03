@@ -1,0 +1,17 @@
+{
+  "name": "alianca_no_lar_backend",
+  "version": "1.0.0",
+  "description": "Backend para o app Aliança no Lar",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Volnei Rodrigues",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "pg": "^8.16.0"
+  }
+}

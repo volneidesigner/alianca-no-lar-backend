@@ -1,3 +1,7 @@
+// CORREÇÃO: Use 'require' em vez de 'import'
+const dns = require('dns');
+dns.setDefaultResultOrder('ipv4first');
+
 require('dotenv').config();
 const express = require('express');
 const { Pool } = require('pg');

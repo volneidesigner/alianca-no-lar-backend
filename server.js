@@ -1,22 +1,24 @@
-// CORREÇÃO: Use 'require' em vez de 'import'
-const dns = require('dns');
-dns.setDefaultResultOrder('ipv4first');
-
 require('dotenv').config();
 const express = require('express');
 const { Pool } = require('pg');
 
 const app = express();
+// O Render define a porta automaticamente, então usamos a variável de ambiente dele.
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
+// Configuração do Pool de Conexão para Produção (Render + Supabase)
 const pool = new Pool({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
     database: process.env.DB_DATABASE,
     password: process.env.DB_PASSWORD,
     port: parseInt(process.env.DB_PORT || "5432"),
+    // Adicionado para garantir a conexão segura em ambientes de produção
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 async function query(text, params) {
@@ -488,6 +490,11 @@ app.post('/attendances', async (req, res) => {
     } finally {
         client.release();
     }
+});
+
+// Rota de teste para ver se o servidor está no ar
+app.get('/', (req, res) => {
+    res.send('Servidor do Aliança no Lar está no ar!');
 });
 
 app.listen(PORT, () => {

@@ -8,14 +8,10 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Configuração do Pool de Conexão para Produção (Render + Supabase)
+// CONFIGURAÇÃO DO POOL ATUALIZADA PARA USAR A DATABASE_URL
+// Este é o método mais robusto para ambientes de produção como o Render.
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: parseInt(process.env.DB_PORT || "5432"),
-    // Adicionado para garantir a conexão segura em ambientes de produção
+    connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
     }
